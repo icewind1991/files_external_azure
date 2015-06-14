@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<info>
+	<id>files_external_azure</id>
+	<name>Azure storage support</name>
+	<description>Azure backend for files_external_azure</description>
+	<licence>AGPL</licence>
+	<author>Robin Appelman</author>
+	<types>
+		<filesystem/>
+	</types>
+
+	<dependencies>
+		<owncloud min-version="8"/>
+	</dependencies>
+</info>

@@ -1,0 +1,14 @@
+{
+  "name": "files_external_azure/3rdparty",
+  "description": "3rdparty components for files_external_azure",
+  "license": "MIT",
+  "require": {
+    "league/flysystem-azure": "^1.0"
+  },
+  "repositories": [
+    {
+      "type": "pear",
+      "url": "http://pear.php.net"
+    }
+  ]
+}
