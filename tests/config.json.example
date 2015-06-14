@@ -1,5 +1,5 @@
 {
-  "name": "foo",
-  "key": "bar",
-  "container": "test"
+  "name": "username",
+  "key": "access key",
+  "container": "container name, note that this container will be emptied before and after each tests"
 }
