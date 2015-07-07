@@ -2,7 +2,9 @@
 
 Azure storage backend for ownCloud
 
-requires oc 8.1-b2 or later with https://github.com/owncloud/core/pull/16923 and https://github.com/owncloud/core/pull/16924 merged
+requires oc 8.2 pre-alpha or later
+
+Note: due to limitations to azure the backend does not support detecting external changes at the moment
 
 ## Installation
 
