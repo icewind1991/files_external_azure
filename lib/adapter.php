@@ -24,6 +24,7 @@ use League\Flysystem\Azure\AzureAdapter;
 use League\Flysystem\Config;
 use League\Flysystem\FileNotFoundException;
 use WindowsAzure\Blob\Models\CreateBlobOptions;
+use WindowsAzure\Blob\Models\GetBlobPropertiesResult;
 use WindowsAzure\Blob\Models\GetContainerPropertiesResult;
 use WindowsAzure\Common\ServiceException;
 
@@ -77,17 +78,6 @@ class Adapter extends AzureAdapter {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function has($path) {
-		if ($this->isRoot($path)) {
-			return true;
-		} else {
-			return parent::has($path);
-		}
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
 	public function getMetadata($path) {
 		if ($this->isRoot($path)) {
 			/** @var GetContainerPropertiesResult $info */
@@ -102,7 +92,30 @@ class Adapter extends AzureAdapter {
 				'type' => 'dir',
 			];
 		} else {
-			return parent::getMetadata($path);
+			/** @var GetBlobPropertiesResult $meta */
+			$meta = $this->client->getBlobProperties($this->container, $path);
+
+			return $this->normalizeBlobProperties($path, $meta->getProperties());
 		}
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function has($path) {
+		if ($this->isRoot($path)) {
+			return true;
+		}
+		try {
+			$this->client->getBlobMetadata($this->container, $path);
+		} catch (ServiceException $e) {
+			if ($e->getCode() !== 404) {
+				throw $e;
+			}
+
+			return false;
+		}
+
+		return true;
 	}
 }
