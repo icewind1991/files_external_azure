@@ -86,4 +86,14 @@ class Azure extends Flysystem {
 		$result = $this->copy($source, $target);
 		return ($result and $this->unlink($source));
 	}
+
+	/**
+	 * get the free space in the storage
+	 *
+	 * @param string $path
+	 * @return int|false
+	 */
+	public function free_space($path) {
+		return \OCP\Files\FileInfo::SPACE_UNLIMITED;
+	}
 }
